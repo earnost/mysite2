@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Understanding Engineering</title>
+    <link>https://shannon-engineering.com/podcast.xml</link>
+    <description>Your podcast description goes here.</description>
+    <language>en-us</language>
+    <copyright>All rights reserved by the creator.</copyright>
+    <itunes:author>Ben Shannon</itunes:author>
+    <itunes:category text="Education">
+      <itunes:category text="Engineering"/>
+    </itunes:category>
+    <itunes:image href="https://shannon-engineering.com/images/podcast.jpg"/>
+    <itunes:explicit>no</itunes:explicit>
+
+    <item>
+      <title>Episode 0: A Short Introduction</title>
+      <link>https://shannon-engineering.com/podcast.html</link>
+      <guid>https://shannon-engineering.com/podcasts/e1.mp3</guid>
+      <description>In this episode, we discuss fundamental concepts of statics.</description>
+      <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
+      <enclosure url="https://shannon-engineering.com/podcasts/e1.mp3" length="12345678" type="audio/mpeg"/>
+      <itunes:duration>00:02:50</itunes:duration>
+    </item>
+
+    <!-- Add more <item> blocks for each episode -->
+  </channel>
+</rss>

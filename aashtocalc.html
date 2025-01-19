@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AASHTO Soil Classification Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <!--
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 8px;
+        }
+    </style>
+-->
+</head>
+<body>
+    <!-- Collapsible Navigation Menu -->
+    <nav id="side-nav" class="side-nav">
+        <button id="nav-toggle" class="nav-toggle">☰</button>
+        <ul id="nav-links">
+            <li><a href="index.html" class="active">About</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="traffic.html">Transportation</a></li>
+            <li><a href="geot.html">Geotech</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="content-wrapper">
+        <section id="about-section">
+    <div class="container">
+        <h1>AASHTO Soil Classification</h1>
+        <form id="soilForm">
+            <div class="form-group">
+                <label for="percent10">Percent Passing No. 10 Sieve (%):</label>
+                <input type="number" id="percent10" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="percent40">Percent Passing No. 40 Sieve (%):</label>
+                <input type="number" id="percent40" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="percent200">Percent Passing No. 200 Sieve (%):</label>
+                <input type="number" id="percent200" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="liquidLimit">Liquid Limit (LL):</label>
+                <input type="number" id="liquidLimit" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="plasticLimit">Plastic Limit (PL):</label>
+                <input type="number" id="plasticLimit" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="plasticityIndex">Plasticity Index (PI):</label>
+                <input type="number" id="plasticityIndex" step="0.01" required>
+            </div>
+            <button type="button" onclick="classifySoil()">Classify Soil</button>
+        </form>
+        <div id="results" class="results" style="display: none;">
+            <h2>Results</h2>
+            <p id="classification"></p>
+            <p id="groupIndex"></p>
+        </div>
+    </div>
+
+    <script>
+        function classifySoil() {
+            const percent10 = parseFloat(document.getElementById('percent10').value);
+            const percent40 = parseFloat(document.getElementById('percent40').value);
+            const percent200 = parseFloat(document.getElementById('percent200').value);
+            const liquidLimit = parseFloat(document.getElementById('liquidLimit').value);
+            const plasticityIndex = parseFloat(document.getElementById('plasticityIndex').value);
+
+            let classification = '';
+
+            // AASHTO Classification Logic
+            if (percent200 <= 15 && percent40 <= 30 && percent10 <= 50 && plasticityIndex <= 6) {
+                classification = 'A-1-a (Stone fragments, gravel and sand)';
+            } else if (percent200 <= 25 && percent40 <= 50 && plasticityIndex <= 6) {
+                classification = 'A-1-b (Stone fragments, gravel and sand)';
+            } else if (percent200 <= 10 && percent40 >= 51 && plasticityIndex === 0) {
+                classification = 'A-3 (Silty or clayey gravel and sand)';
+            } else if (percent200 <= 35 && liquidLimit <= 40 && plasticityIndex <= 10) {
+                classification = 'A-2-4 (Silty or clayey gravel and sand)';
+            } else if (percent200 <= 35 && liquidLimit >= 41 && plasticityIndex <= 10) {
+                classification = 'A-2-5 (Silty or clayey gravel and sand)';
+            } else if (percent200 <= 35 && liquidLimit <= 40 && plasticityIndex >= 11) {
+                classification = 'A-2-6 (Silty or clayey gravel and sand)';
+            } else if (percent200 <= 35 && liquidLimit >= 41 && plasticityIndex >= 11) {
+                classification = 'A-2-7 (Silty or clayey gravel and sand)';
+            } else if (percent200 >= 36 && liquidLimit <= 40 && plasticityIndex <= 10) {
+                classification = 'A-4 (SIlty soils)';
+            } else if (percent200 >= 36 && liquidLimit >= 41 && plasticityIndex <= 10) {
+                classification = 'A-5 (Silty soils)';
+            } else if (percent200 >= 36 && liquidLimit <= 40 && plasticityIndex >= 11) {
+                classification = 'A-6 (Clayey soils)';
+            } else if (percent200 >= 36 && liquidLimit >= 41 && plasticityIndex >= 11) {
+                if (plasticityIndex <= (liquidLimit - 30)) {
+                    classification = '(A-7-5 Clayey soils)';
+                } else {
+                    classification = 'A-7-6 (Clayey soils)';
+                }
+            } else {
+                classification = 'Unclassified';
+            }
+
+     // Group Index Calculation
+     const percent200Whole = Math.round(percent200);
+            let groupIndex = 0;
+            if (percent200Whole > 35) {
+                groupIndex = ((percent200Whole - 35) * (0.2 + 0.005 * (liquidLimit - 40))) + 
+                             (0.01 * (percent200Whole - 15) * (plasticityIndex - 10));
+                groupIndex = Math.max(0, groupIndex.toFixed(2));
+            }
+
+         // Display Results
+         document.getElementById('results').style.display = 'block';
+            document.getElementById('classification').innerText = `Soil Classification: ${classification}`;
+            document.getElementById('groupIndex').innerText = `Group Index: ${groupIndex}`;
+        }
+    </script>
+    <div class="about-photo">
+    
+        <img src="images/aashtochart.jpg">
+        <p>This chart can be used to classify soils under the AASHTO
+            system.
+        </p>
+        <p>
+            Below is a short description of classification groups:
+        </p>
+        <li>Subgroup A-1a  : Includes those materials consisting predominantly of stone fragments or gravel</li>
+        <br>
+        <li>Subgroup A-1b  : Includes those materials consisting predominantly of coarse sand, either with or without a well-graded soil binder</li>
+        <br>
+        <li>Subgroup A-3   : Fine beach sand or fine deser loess sand without silty or clay fines or with a very small amount of nonplastic silt</li>
+        <br>
+        <li>Subgroup A-2-4 : Includes various granular materials containing 35% or less passing the 0.075mm (No. 200) sieve and with a minus 0.425mm in having the characteristics of the A-4 and A-5 groups</li>
+        <br>
+        <li>Subgroup A-2-5 : Includes various granular materials containing 35% or less passing the 0.075mm (No. 200) sieve and with a minus 0.425mm in having the characteristics of the A-4 and A-5 groups</li>
+        <br>
+        <li>Subgroup A-2-6 : Includes materials similar to that described under subgrades A-2-4 and A-2-5, except that a fine portion contains plastic clay having the characteristics of the A-6 or A-7 group</li>
+        <br>
+        <li>Subgroup A-2-7 : Includes materials similar to that described under subgrades A-2-4 and A-2-5, except that a fine portion contains plastic clay having the characteristics of the A-6 or A-7 group</li>
+        <br>
+        <li>Subgroup A-4   : The typical materials of this group are the nonplastic or moderately plastic silty soils</li>
+        <br>
+        <li>Subgroup A-5   : Similar to that described under group 2-4, except that it is usually of diatomaceous or micaceous character</li>
+        <br>
+        <li>Subgroup A-6   : Usually a plastic clay having 75% or more passing the 0.075mm (No. 200) sieve</li>
+        <br>
+        <li>Subgroup A-7-5 : Includes materials with moderate plasticity indexes indexes in relation to liquid limit</li>
+        <br>
+        <li>Subgroup A-7-6 : Includes materials with high plasticity indexes in relation to liquid limit</li>
+    </section>
+    </div>
+    </div>
+
+     <!-- Link to the external JavaScript file -->
+     <script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beam Deflection Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Beam Deflection Calculator</h1>
+            <p>Calculate the deflection of a beam under a given load with visualization.</p>
+        </div>
+        <div id="canvas"></div>
+        <form onsubmit="event.preventDefault(); calculateDeflection();">
+            <label for="length">Length of Beam (m):</label>
+            <input type="number" id="length" step="0.1" required>
+            
+            <label for="load">Applied Load (N):</label>
+            <input type="number" id="load" step="0.1" required>
+            
+            <label for="distance">Distance from Support (m):</label>
+            <input type="number" id="distance" step="0.1" required>
+            
+            <label for="youngsModulus">Young's Modulus (Pa):</label>
+            <input type="number" id="youngsModulus" step="0.1" required>
+            
+            <button type="submit">Calculate Deflection</button>
+        </form>
+        <div class="results">
+            <div id="deflection">Deflection: </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

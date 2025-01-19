@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D FEA Solver with Three.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+</head>
+<body>
+    <h1>3D FEA Solver with Visualization</h1>
+
+    <!-- Input Fields for FEA Parameters -->
+    <label for="youngs_modulus">Young's Modulus (E):</label>
+    <input type="text" id="youngs_modulus" value="210e9"><br>
+
+    <label for="area">Area (A):</label>
+    <input type="text" id="area" value="0.01"><br>
+
+    <label for="force">Force (F):</label>
+    <input type="text" id="force" value="1000"><br>
+
+    <!-- Solve FEA Button -->
+    <button id="solve_fea_button">Solve FEA</button>
+
+    <!-- Container for Three.js Visualization -->
+    <div id="threejs_container" style="width: 100%; height: 500px;"></div>
+
+    <!-- PyScript block for running NumPy-dependent code after loading the package -->
+    <py-script output="console">
+        import pyodide
+        from js import document, window
+
+        async def load_numpy_and_run():
+            # Load NumPy via Pyodide
+            await pyodide.loadPackage("numpy")
+
+            import numpy as np
+
+            # FEA Solver function
+            def fea_solver(E, A, F, num_nodes=4):
+                length = 10.0
+                num_elements = num_nodes - 1
+                x = np.linspace(0, length, num_nodes)
+                element_length = length / num_elements
+                K = np.zeros((num_nodes, num_nodes))
+
+                def element_stiffness(E, A, L):
+                    return E * A / L * np.array([[1, -1], [-1, 1]])
+
+                for i in range(num_elements):
+                    Ke = element_stiffness(E, A, element_length)
+                    K[i:i+2, i:i+2] += Ke
+
+                # Apply boundary condition (fixed at node 0)
+                K[0, :] = 0
+                K[0, 0] = 1
+
+                # Load vector
+                load_vector = np.zeros(num_nodes)
+                load_vector[-1] = F
+
+                # Solve for displacements
+                displacements = np.linalg.solve(K, load_vector)
+                return x, displacements
+
+            # Function to handle FEA solve action
+            def solve_fea(event):
+                E = float(document.getElementById("youngs_modulus").value)
+                A = float(document.getElementById("area").value)
+                F = float(document.getElementById("force").value)
+
+                # Solve FEA
+                x, displacements = fea_solver(E, A, F)
+
+                # Prepare data to send to Three.js
+                coordinates = [{'x': xi, 'y': 0, 'z': 0, 'disp': disp} for xi, disp in zip(x, displacements)]
+
+                # Pass the coordinates to JavaScript (Three.js)
+                window.visualize_3d(coordinates)
+
+            # Attach event listener to the button after NumPy is loaded
+            document.getElementById("solve_fea_button").addEventListener("click", solve_fea)
+
+        # Use PyScript async method to await loading of numpy and run
+        await load_numpy_and_run()
+    </py-script>
+
+    <script>
+        // Three.js Visualization Setup
+        function visualize_3d(coordinates) {
+            // Get the container for the 3D scene
+            const container = document.getElementById("threejs_container");
+
+            // Create the Three.js scene
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+
+            // Add lighting
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(1, 1, 1).normalize();
+            scene.add(light);
+
+            // Add the FEA nodes (as spheres) and connections (as lines)
+            coordinates.forEach((point, index) => {
+                // Create a sphere for each node
+                const geometry = new THREE.SphereGeometry(0.1, 32, 32);
+                const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+                const sphere = new THREE.Mesh(geometry, material);
+
+                // Position the node according to its coordinates (add displacement to x for demo)
+                sphere.position.set(point.x + point.disp, point.y, point.z);
+                scene.add(sphere);
+
+                // Optionally, connect the nodes with lines
+                if (index > 0) {
+                    const previous = coordinates[index - 1];
+                    const line_material = new THREE.LineBasicMaterial({ color: 0x0000ff });
+                    const points = [];
+                    points.push(new THREE.Vector3(previous.x + previous.disp, previous.y, previous.z));
+                    points.push(new THREE.Vector3(point.x + point.disp, point.y, point.z));
+
+                    const line_geometry = new THREE.BufferGeometry().setFromPoints(points);
+                    const line = new THREE.Line(line_geometry, line_material);
+                    scene.add(line);
+                }
+            });
+
+            // Set camera position
+            camera.position.z = 5;
+
+            // Render the scene
+            function animate() {
+                requestAnimationFrame(animate);
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+    </script>
+</body>
+</html>

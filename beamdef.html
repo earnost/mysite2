@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beam Deflection Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+
+
+</head>
+<body>
+    <nav id="side-nav" class="side-nav">
+        <button id="nav-toggle" class="nav-toggle">☰</button>
+        <ul id="nav-links">
+            <li><a href="index.html" class="active">About</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="traffic.html">Transportation</a></li>
+            <li><a href="geot.html">Geotech</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="content-wrapper">
+    <div class="container">
+        <h1>Beam Deflection Calculator</h1>
+        <label for="length">Beam Length (m):</label>
+        <input type="number" id="length" step="0.01">
+        <br>
+        <label for="load">Load Magnitude (N):</label>
+        <input type="number" id="load" step="0.01">
+        <br>
+        <label for="distance">Load Distance from Support (m):</label>
+        <input type="number" id="distance" step="0.01">
+        <br>
+        <label for="youngsModulus">Young's Modulus (Pa):</label>
+        <input type="number" id="youngsModulus" step="1">
+        <br>
+        <button onclick="calculateDeflection()">Calculate</button>
+        <h2>Deflection: <span id="deflection">0</span> m</h2>
+        <canvas id="canvas" width="800" height="300"></canvas>
+    </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

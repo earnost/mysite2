@@ -1,0 +1,273 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #D3D3D3; /* Light Gray for background */
+}
+
+/* Navigation Styles */
+.side-nav {
+    background-color: #333333; /* Charcoal Gray */
+    color: #fff;
+    width: 200px; /* Expanded width */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    padding-top: 20px; /* Space for the toggle button */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3); /* Optional shadow for depth */
+    transition: width 0.3s ease; /* Smooth transition for collapsing */
+}
+
+.nav-toggle {
+    background-color: #333333; /* Charcoal Gray */
+    color: #fff;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    font-size: 24px; /* Larger icon for the button */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure button is above other content */
+}
+
+.side-nav.collapsed {
+    width: 60px; /* Collapsed width */
+}
+
+.side-nav.collapsed #nav-links {
+    display: none; /* Hide links in collapsed state */
+}
+
+.side-nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-nav ul li {
+    padding: 15px;
+}
+
+.side-nav ul li a {
+    color: #D3D3D3; /* Light Gray */
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+    box-sizing: border-box; /* Ensure padding doesn’t affect overall size */
+}
+
+.side-nav ul li a:hover {
+    background-color: #B87333; /* Copper */
+}
+
+/* Add padding to adjust link position */
+.side-nav ul li:first-child a {
+    padding-top: 40px; /* Adjust this value as needed */
+}
+
+/* Highlight the active page */
+.side-nav ul li a.active {
+    font-weight: bold;
+    background-color: #4a4a4a; /* Darker shade to highlight the active link */
+    color: #FFFFFF; /* White text for better readability */
+}
+
+/* Main Content Styles */
+.content-wrapper {
+    margin-left: 200px; /* Offset for the navigation */
+    padding: 20px;
+    background-color: #FFFFFF; /* White for main content */
+    color: #333333; /* Charcoal Gray for text */
+    transition: margin-left 0.3s ease; /* Smooth transition for content shift */
+}
+
+.side-nav.collapsed ~ .content-wrapper {
+    margin-left: 60px; /* Adjust margin when nav is collapsed */
+}
+
+/* Buttons and Highlights */
+button, .highlight {
+    background-color: #228B22; /* Forest Green for dynamic elements */
+    color: #fff;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .side-nav {
+        width: 100%;
+        height: auto;
+        position: relative;
+        transform: translateX(-100%); /* Hidden by default */
+    }
+
+    .content-wrapper {
+        margin-left: 0;
+    }
+}
+
+/* Resume Page Specific Styles */
+#resume {
+    padding: 20px;
+}
+
+#resume embed {
+    border: 1px solid #ccc; /* Optional border for better visual */
+}
+/* Navigation Links */
+.side-nav ul li a {
+    color: #D3D3D3; /* Light Gray */
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+}
+
+.side-nav ul li a:hover {
+    background-color: #49663a; /* Copper */
+}
+
+/* Highlight the active page */
+.side-nav ul li a.active {
+    font-weight: bold;
+    background-color: #4a4a4a; /* Darker shade to highlight the active link */
+    color: #FFFFFF; /* White text for better readability */
+}
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .side-nav {
+        width: 100%;
+        height: auto;
+        position: relative;
+        transform: translateX(-100%); /* Hidden by default */
+    }
+
+    .side-nav ul li a {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+}
+/* General Styles for Content */
+.content-wrapper {
+    opacity: 0; /* Initially hidden */
+    transform: translateX(-100px); /* Start from the left */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Animate both properties */
+}
+
+.content-wrapper.show {
+    opacity: 1; /* Fully visible */
+    transform: translateX(0); /* Move to the original position */
+}
+
+/* You can also add animations to individual elements if needed */
+.project, .highlight, .section-title {
+    opacity: 0; /* Initially hidden */
+    transform: translateY(20px); /* Start from below */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.project.show, .highlight.show, .section-title.show {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Move to the original position */
+}
+/* Contact Page Styles */
+/* Contact Page Styles */
+#contact {
+    padding: 20px;
+    background-color: #2E2E2E; /* Darker background to match the rest of the site */
+    color: #f5f5f5; /* Light text color for contrast */
+}
+
+.section-title {
+    font-size: 2em;
+    color: #E8DAB2; /* Soft beige for titles */
+    margin-bottom: 20px;
+}
+
+.contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.contact-details, .contact-form {
+    flex: 1;
+    max-width: 600px;
+    background: #3A3A3A; /* Darker box background */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Deeper shadow for depth */
+    box-sizing: border-box; /* Ensure padding is included in width calculations */
+}
+
+.contact-details ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-details ul li {
+    margin-bottom: 10px;
+}
+
+.contact-details a {
+    color: #E8DAB2; /* Soft beige for links */
+    text-decoration: none;
+}
+
+.contact-details a:hover {
+    text-decoration: underline;
+}
+
+.contact-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #E8DAB2; /* Soft beige for labels */
+}
+
+.contact-form input, .contact-form textarea {
+    width: calc(100% - 22px); /* Adjust for padding and border */
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #4A4A4A; /* Darker border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #2E2E2E; /* Matching background */
+    color: #f5f5f5; /* Light text color */
+    box-sizing: border-box; /* Ensure padding is included in width calculations */
+}
+
+.contact-form textarea {
+    resize: vertical; /* Allow vertical resizing for better usability */
+}
+
+.contact-form button {
+    background-color: #6C6C6C; /* Earthy gray for buttons */
+    color: #f5f5f5; /* Light text */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.contact-form button:hover {
+    background-color: #4A4A4A; /* Darker shade on hover */
+}
+
+.about-photo img {
+    max-width: 50%;
+    border-radius: 10px;
+    border: 2px solid #e7e5e4;
+    float: center;
+  }
+
+  .about-section {
+  float: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 40px;
+  }
