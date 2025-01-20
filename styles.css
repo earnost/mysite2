@@ -271,3 +271,42 @@ button, .highlight {
   justify-content: space-between;
   padding: 50px 40px;
   }
+
+
+
+/* MEDIA QUERY for smaller screens */
+@media (max-width: 768px) {
+    /* Show the hamburger icon */
+    .menu-icon {
+        display: block;
+    }
+
+    /* Hide the nav links by default */
+    nav ul {
+        position: absolute;
+        top: 60px;       /* just below the nav bar */
+        right: 0;
+        background-color: #333;
+        width: 50%;
+        display: none;   /* hidden by default */
+        flex-direction: column;
+        gap: 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    /* Make links take full width and align left */
+    nav ul li {
+        border-bottom: 1px solid #444;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 15px;
+        width: 100%;
+    }
+
+    /* When the nav is active (toggled open) */
+    nav ul.active {
+        display: flex;
+    }
+}

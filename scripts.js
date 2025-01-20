@@ -115,4 +115,12 @@ function drawBeam(length, deflection, loadDistance) {
 }
 
 
+// Get elements
+const menuIcon = document.getElementById('menu-icon');
+const navLinks = document.getElementById('nav-links');
+
+// Toggle the "active" class on click
+menuIcon.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+});
 
