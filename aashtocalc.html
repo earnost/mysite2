@@ -5,63 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AASHTO Soil Classification Calculator</title>
     <link rel="stylesheet" href="styles.css">
-    <!--
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .results {
-            margin-top: 20px;
-            padding: 15px;
-            background: #e9ecef;
-            border-radius: 8px;
-        }
+
     </style>
--->
 </head>
 <body>
     <!-- Collapsible Navigation Menu -->
@@ -168,8 +114,9 @@
             document.getElementById('classification').innerText = `Soil Classification: ${classification}`;
             document.getElementById('groupIndex').innerText = `Group Index: ${groupIndex}`;
         }
+
     </script>
-    <div class="about-photo">
+    <div class="aashtochart">
     
         <img src="images/aashtochart.jpg">
         <p>This chart can be used to classify soils under the AASHTO
@@ -194,7 +141,7 @@
         <br>
         <li>Subgroup A-4   : The typical materials of this group are the nonplastic or moderately plastic silty soils</li>
         <br>
-        <li>Subgroup A-5   : Similar to that described under group 2-4, except that it is usually of diatomaceous or micaceous character</li>
+        <li>Subgroup A-5   : Similar to that described under group A-4, except that it is usually of diatomaceous or micaceous character</li>
         <br>
         <li>Subgroup A-6   : Usually a plastic clay having 75% or more passing the 0.075mm (No. 200) sieve</li>
         <br>
@@ -206,6 +153,9 @@
     </div>
 
      <!-- Link to the external JavaScript file -->
-     <script src="scripts.js"></script>
+     <script src="scripts.js">
+
+        
+     </script>
 </body>
 </html>

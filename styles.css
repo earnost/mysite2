@@ -97,18 +97,22 @@ button, .highlight {
 }
 
 /* Responsive Styles */
-@media screen and (max-width: 768px) {
-    .side-nav {
-        width: 100%;
-        height: auto;
-        position: relative;
-        transform: translateX(-100%); /* Hidden by default */
+@media (max-width: 768px) {
+    /* Let the nav items wrap onto a new line if needed */
+    nav ul {
+      flex-wrap: wrap; 
     }
-
-    .content-wrapper {
-        margin-left: 0;
+  
+    /* Optionally, reduce the gap or font size so they fit better */
+    nav ul {
+      gap: 10px; /* Smaller gap on mobile */
     }
-}
+  
+    nav ul li a {
+      font-size: 0.9em; /* Slightly smaller text on mobile */
+    }
+  }
+  
 
 /* Resume Page Specific Styles */
 #resume {
@@ -136,21 +140,10 @@ button, .highlight {
     background-color: #4a4a4a; /* Darker shade to highlight the active link */
     color: #FFFFFF; /* White text for better readability */
 }
-/* Responsive Styles */
-@media screen and (max-width: 768px) {
-    .side-nav {
-        width: 100%;
-        height: auto;
-        position: relative;
-        transform: translateX(-100%); /* Hidden by default */
-    }
 
-    .side-nav ul li a {
-        padding: 10px; /* Adjust padding for smaller screens */
-    }
-}
 /* General Styles for Content */
 .content-wrapper {
+    text-align: left;
     opacity: 0; /* Initially hidden */
     transform: translateX(-100px); /* Start from the left */
     transition: opacity 0.5s ease, transform 0.5s ease; /* Animate both properties */
@@ -257,56 +250,39 @@ button, .highlight {
 }
 
 .about-photo img {
-    max-width: 50%;
+    width: 300px;
+    height: 300px;
     border-radius: 10px;
     border: 2px solid #e7e5e4;
-    float: center;
+    display: flex;
+    text-align: center;
+    display: block;
+    margin:  auto;
+    padding: 0px 0px;
+    
   }
 
   .about-section {
+    text-align: center;
   float: center;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 50px 40px;
+  transform: translateX(-100px); /* Start from the left */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Animate both properties */
   }
 
+  .aashtochart img {
+    max-width: 60%;
+    border-radius: 10px;
+    border: 2px solid #e7e5e4;
+    display: flex;
+    text-align: center;
+    display: block;
+    margin:  auto;
+    padding: 0px 0px;
+    
+  }
 
-
-/* MEDIA QUERY for smaller screens */
-@media (max-width: 768px) {
-    /* Show the hamburger icon */
-    .menu-icon {
-        display: block;
-    }
-
-    /* Hide the nav links by default */
-    nav ul {
-        position: absolute;
-        top: 60px;       /* just below the nav bar */
-        right: 0;
-        background-color: #333;
-        width: 50%;
-        display: none;   /* hidden by default */
-        flex-direction: column;
-        gap: 0;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    }
-
-    /* Make links take full width and align left */
-    nav ul li {
-        border-bottom: 1px solid #444;
-    }
-
-    nav ul li a {
-        display: block;
-        padding: 15px;
-        width: 100%;
-    }
-
-    /* When the nav is active (toggled open) */
-    nav ul.active {
-        display: flex;
-    }
-}
